@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>TOURVIS</title>
+  <link rel="stylesheet" type="text/css" href="./_guide/guide.css" />
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript" src="./_guide/dtree.js"></script>
+</head>
+<body class="wbg">
+  <div class="guide-wrapper">
+    <div id="content_guide_list">
+      <h1>퍼블리싱 진행표</h1>
+      <h2>진행 표시</h2>
+      <ol>
+  			<li><span style="color:#f55;">■ 수정</span></li>
+  			<li><span style="color:#37b4e7;">■ 신규</span></li>
+  			<li><span style="color:green;">■ 작업중 - 비고</span></li>
+  			<li><span style="color:#5727ff;">■ 완료</span></li>
+      </ol>
+      <span id="t_title"></span>
+    </div>
+    <div class="dtree">
+  		<div class="area_btn">
+  			<a href="javascript: b.openAll();"><img src="./_guide/img/btn_expand.gif" alt="Expand All" /></a>
+  			<a href="javascript: b.closeAll();"><img src="./_guide/img/btn_collapse.gif" alt="Collapse All" /></a>
+  		</div>
+  		<script type="text/javascript">
+  			//<![CDATA[
+        b = new dTree('b');
+        b.add( 0, -1, '엔버' );
+
+        b.add( 1, 0, '1. 메인','../publish/html/index.html','완료','_blank');
+        b.add( 2, 0, '2. 회사소개','../publish/html/company.html','완료','_blank');
+        b.add( 3, 0, '<b style="color:#5727ff;">3. 서비스</b>');
+        b.add( 3.01, 3, '3-1. ASP Service','../publish/html/asp.html','완료','_blank');
+        b.add( 3.02, 3, '3-2. Mobile CouponPlatform','../publish/html/cpplatform.html','완료','_blank');
+        b.add( 4, 0, '4. 문의','../publish/html/contact.html','완료','_blank');
+
+        document.write(b);
+        //]]>
+        
+        $('.view-source').each(function(){
+          $(this).prev('a').on('click', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            var folder = $($(this).prev('img'));
+            if(folder.attr('src') == '_guide/img/folder.gif') {
+              folder.attr('src', '_guide/img/folderopen.gif');
+              folder.prev('a').find('img').attr('src', '_guide/img/minus.gif');
+              $(this).closest('.dTreeNode').next('.clip').show();
+            }else{
+              folder.attr('src', '_guide/img/folder.gif');
+              folder.prev('a').find('img').attr('src', '_guide/img/plus.gif');
+              $(this).closest('.dTreeNode').next('.clip').hide();
+            }
+          });
+        });
+
+        $('.view-source span').on('click', function(e){
+          $('.view-source').removeClass('active');
+          $('.source-wrap').fadeOut(200);
+          $(this).closest('.view-source').addClass('active');
+          $(this).next('.source-wrap').fadeIn(200);
+          e.preventDefault();
+        });
+        $(document).on('click', function(e){
+          if(!$('.view-source').is(e.target) && $('.view-source').has(e.target).length === 0){
+            $('.view-source').removeClass('active');
+            $('.source-wrap').fadeOut(200);
+          }
+        });
+  		</script>
+  	</div>
+  </div>
+</body>
+</html>

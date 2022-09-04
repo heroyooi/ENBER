@@ -13,6 +13,7 @@ UI = {
             UI.fn_nav_act();
             UI.fn_header_fix();                       
             UI.fn_tab_act();
+            UI.fn_popup_act();
             ie_fixed();
             if($('.main-visual').length > 0){
                 UI.fn_header_act(); 
@@ -143,6 +144,19 @@ UI = {
             }
             $('html,body').animate({scrollTop : $(targetHash).offset().top - 50},300);           
         });                
+    },
+    fn_popup_act : function(){
+        $('a.btn-popup').magnificPopup({
+            type: 'inline',
+            fixedContentPos: true,
+            fixedBgPos: true,
+            overflowY: 'auto',
+            closeBtnInside: true,
+            preloader: false,
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'mfp-zin'
+        });
     }
 }
 
@@ -191,5 +205,12 @@ function includeHTML(){
         } 
 }
 
-
-
+$.urlParam = function(name){
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results == null){
+      return null;
+    }
+    else {
+      return decodeURI(results[1]) || 0;
+    }
+}
